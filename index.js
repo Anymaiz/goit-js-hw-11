@@ -1,0 +1,12 @@
+import{i,S as c}from"./assets/vendor-De63neY_.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))a(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const n of t.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&a(n)}).observe(document,{childList:!0,subtree:!0});function o(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function a(e){if(e.ep)return;e.ep=!0;const t=o(e);fetch(e.href,t)}})();const l="48573229-d00ec4466a1952407b35369c3",u="https://pixabay.com/api/";async function d(s){const r=`${u}?key=${l}&q=${encodeURIComponent(s)}&image_type=photo&orientation=horizontal&safesearch=true`;try{const o=await fetch(r);if(!o.ok)throw new Error("Sorry, there was an error loading. Please try again!");return(await o.json()).hits}catch(o){throw console.error(o),o}}function f({webformatURL:s,largeImageURL:r,tags:o,likes:a,views:e,comments:t,downloads:n}){return`
+        <a href="${r}" class="gallery-item">
+            <img src="${s}" alt="${o}" class="gallery-image" />
+            <div class="info">
+                <p class="text-image"><b>Likes:</b> ${a}</p>
+                <p class="text-image"><b>Views:</b> ${e}</p>
+                <p class="text-image"><b>Comments:</b> ${t}</p>
+                <p class="text-image"><b>Downloads:</b> ${n}</p>
+            </div>
+        </a>
+    `}function m(s){const r=document.querySelector(".gallery");r.innerHTML=s.map(f).join("")}document.addEventListener("DOMContentLoaded",()=>{const s=document.querySelector("#search-form"),r=s.querySelector("input");s.addEventListener("submit",async o=>{o.preventDefault();const a=r.value.trim();if(!a){i.error({title:"Error",message:"Please enter your request."});return}document.querySelector(".loader").classList.remove("hidden");try{const e=await d(a);e.length===0?i.info({title:"No Results",message:"Sorry, your request is incorrect. Please try again!"}):(m(e),new c(".gallery a",{captionsData:"alt",captionDelay:250}).refresh())}catch{i.error({title:"Error",message:"Sorry, there was an error. Please try again!"})}finally{document.querySelector(".loader").classList.add("hidden")}})});
+//# sourceMappingURL=index.js.map
